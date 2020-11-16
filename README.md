@@ -3,7 +3,7 @@ Welcome to Stella IT!
 Stella IT, Innovating the World with Open Technology.  
 
 ## Discord Community
-[Join Our Discord!](/discord)  
+[Join Our Discord!](/discord/)  
 
 ## Opensource Projects
 ### "Xena" Virtualization Solutions
