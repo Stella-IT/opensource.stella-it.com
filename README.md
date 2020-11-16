@@ -1,6 +1,7 @@
 # Stella IT OpenSource Project
 Welcome to Stella IT!  
 Stella IT, Innovating the World with Open Technology.  
+[Code Of Conduct](https://stella-it.com/opensource/codeofconduct)  
 
 ## Discord Community
 [Join Our Discord!](/discord/)  
