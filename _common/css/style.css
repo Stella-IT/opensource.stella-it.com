@@ -113,7 +113,6 @@
     }
 
     section.fullpage {
-      padding: calc(var(--header-padding) * 2);
       height: calc(100vh - 8rem);
       position: relative;
     }
