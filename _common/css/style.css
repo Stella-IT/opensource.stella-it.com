@@ -56,8 +56,6 @@
     nav li {
       display: inline-block;
       margin: 0;
-      margin-right: 2rem;
-
       font-size: 1.2rem;
     }
 
@@ -70,10 +68,6 @@
 
       transition: .2s;
       padding: var(--header-padding);
-    }
-
-    nav li:last-child {
-      margin-right: 0;
     }
 
     nav li a:hover {
@@ -127,7 +121,7 @@
       color: var(--color-stella-blue);
     }
 
-    footer {
+    footer.at-end {
       position: absolute;
       bottom: 0;
     }
