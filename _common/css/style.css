@@ -1,0 +1,139 @@
+
+    :root {
+      --header-height: 72px;
+      --header-padding: 16px;
+
+      --color-stella-blue: rgb(55, 140, 255);
+      --color-stella-white: rgb(245, 245, 247);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'Upgrade', sans-serif;
+      font-weight: 300;
+
+      background: var(--color-stella-white);
+    }
+
+    header {
+      box-sizing: content-box;
+
+      height: var(--header-height);
+
+      position: absolute;
+      top: var(--header-padding);
+
+      width: calc(100vw - calc(var(--header-padding) * 2));
+      background: #FFF;
+
+      z-index: 100;
+
+      transition: .5s;
+    }
+
+    header:focus-within, header:hover {
+      box-shadow: rgba(0,0,0,.1) 0px 8px 8px;
+    }
+
+    nav img:first-of-type {
+      height: var(--header-height);
+    
+      padding: var(--header-padding);
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      float: right;
+      vertical-align: middle;
+    }
+
+    nav li {
+      display: inline-block;
+      margin: 0;
+      margin-right: 2rem;
+
+      font-size: 1.2rem;
+    }
+
+    nav li a {
+      color: #000;
+      text-decoration: none;
+      height: var(--header-height);
+      line-height: calc(var(--header-height) / 2);
+      display: inline-block;
+
+      transition: .2s;
+      padding: var(--header-padding);
+    }
+
+    nav li:last-child {
+      margin-right: 0;
+    }
+
+    nav li a:hover {
+      background: var(--color-stella-blue);
+      color: var(--color-stella-white);
+    }
+
+    main section {
+      margin: 1rem;
+    }
+    
+    main section:first-child {
+      margin-top: calc(var(--header-height) + calc(var(--header-padding) * 2));
+    }
+
+    main section.fullpage h1 {
+      font-size: 7vw;
+      margin: 0;
+
+      animation: slidein .5s ease-out;
+    }
+
+    main section.fullpage p {
+      font-size: 3vw;
+      animation: slidein .5s ease-out;
+    }
+
+    @media screen and (min-width: 1000px) {
+      main section.fullpage h1 {
+        font-size: 70px;
+        margin: 0;
+      }
+
+      main section.fullpage p {
+        font-size: 30px;
+      }
+    }
+
+    section.fullpage {
+      padding: 2rem;
+      height: calc(100vh - 8rem);
+      position: relative;
+    }
+
+    section.fullpage article {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .highlight {
+      color: var(--color-stella-blue);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+    }
+
+    @keyframes slidein {
+      from { opacity: 0; transform: translateY(2em); }
+      to { opacity: 1; transform: translateY(0); }
+    }
