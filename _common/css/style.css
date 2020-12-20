@@ -21,7 +21,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-stella-white: rgb(10, 10, 8);
+    --color-stella-white: rgb(22, 22, 22);
     --color-stella-brighter-white: rgb(0, 0, 0);
 
     --color-text: rgb(255, 255, 255);
@@ -58,9 +58,10 @@ header {
 
   position: absolute;
   top: var(--header-padding);
+  left: var(--header-padding);
 
   max-width: calc(var(--max-width) - calc(var(--header-padding)));
-  width: calc(100% - calc(var(--header-padding)));
+  width: calc(100% - calc(2 * var(--header-padding)));
   background: var(--color-stella-brighter-white);
 
   z-index: 100;
@@ -166,11 +167,13 @@ section.fullpage article {
 footer {
   font-size: .9em;
   color: var(--color-tinted-text);
+
+  padding: var(--header-padding);
 }
 
 footer.at-end {
   position: absolute;
-  bottom: var(--header-padding);
+  bottom: 0;
 }
 
 footer a.associates {
