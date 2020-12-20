@@ -72,12 +72,6 @@ header {
   background: var(--color-stella-brighter-white);
 
   z-index: 100;
-
-  transition: .5s;
-}
-
-header:focus-within, header:hover {
-  box-shadow: var(--color-shadow) 0px 8px 8px;
 }
 
 nav > a.logo {
