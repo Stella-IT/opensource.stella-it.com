@@ -190,8 +190,10 @@
     const coc = document.getElementById('coc');
     coc.innerHTML = coc.innerHTML.replace(/\{PROJECT\_NAME\}/g, "<strong>Stella IT OpenSource Project</strong>");
     coc.innerHTML = coc.innerHTML.replace(/\{GOVERNING\_BODY\}/g, "Stella IT Inc.");
+
+    const mail = "op{dontspam}ens{dontspam}ource{at}stella-it.com".replace(/\{dontspam\}/g, '').replace(/\{at\}/g, '@');
     coc.innerHTML = coc.innerHTML.replace(/\{POLICY\_LINK\}/g, "<a href=\"https://stella-it.com/policy/terms\">Link to Policies</a>");
-    coc.innerHTML = coc.innerHTML.replace(/\{CONTACT\_LINK\}/g, "<a href=\"mailto:opensource@stella-it.com\">opensource@stella-it.com</a>");
+    coc.innerHTML = coc.innerHTML.replace(/\{CONTACT\_LINK\}/g, "<a href=\"mailto:"+mail+"\">"+mail+"</a>");
   </script>
   
 </body>
