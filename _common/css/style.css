@@ -51,6 +51,7 @@ body {
   margin: 0 auto;
 }
 
+
 header {
   box-sizing: content-box;
 
@@ -58,7 +59,9 @@ header {
 
   position: absolute;
   top: var(--header-padding);
-  left: var(--header-padding);
+  left: calc(50% + var(--header-padding));
+
+  transform: translateX(calc(-50% - var(--header-padding)));
 
   max-width: calc(var(--max-width) - calc(var(--header-padding)));
   width: calc(100% - calc(2 * var(--header-padding)));
