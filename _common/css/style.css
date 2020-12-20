@@ -243,3 +243,9 @@ section article.card h1 {
   font-size: 2.3em;
 }
 
+@media screen and (max-height: 500px) {
+  footer.at-end {
+    display: none;
+  }  
+}
+
