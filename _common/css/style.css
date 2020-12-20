@@ -129,7 +129,7 @@ main section {
 }
 
 main section:first-child {
-  margin-top: calc(var(--header-height) + calc(var(--header-padding) * 2));
+  margin-top: calc(calc(var(--header-height) * 1.7) + calc(var(--header-padding) * 2));
 }
 
 main section.fullpage h1 {
@@ -143,6 +143,7 @@ main section.fullpage p {
   font-size: 3vw;
   animation: slidein .5s ease-out;
 }
+
 
 @media screen and (min-width: 1000px) {
   main section.fullpage h1 {
