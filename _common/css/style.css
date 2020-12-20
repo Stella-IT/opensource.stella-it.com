@@ -1,169 +1,181 @@
 
-    :root {
-      --header-height: 72px;
-      --header-padding: 16px;
+:root {
+  --header-height: 72px;
+  --header-padding: 16px;
 
-      --color-stella-blue: rgb(55, 140, 255);
+  --color-stella-blue: rgb(55, 140, 255);
 
-      --color-stella-white: rgb(245, 245, 247);
-      --color-stella-brighter-white: rgb(255, 255, 255);
+  --color-stella-white: rgb(245, 245, 247);
+  --color-stella-brighter-white: rgb(255, 255, 255);
 
-      --color-text: rgb(0, 0, 0);
-      --color-tinted-text: rgb(66, 66, 66);
+  --color-text: rgb(0, 0, 0);
+  --color-tinted-text: rgb(66, 66, 66);
 
-      --color-shadow: rgba(0, 0, 0, .1);
+  --color-shadow: rgba(0, 0, 0, .1);
 
-      --stella-logo: url('/_common/img/logo_black.svg');
-    }
+  --stella-logo: url('/_common/img/logo_black.svg');
+}
 
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --color-stella-white: rgb(10, 10, 8);
-        --color-stella-brighter-white: rgb(0, 0, 0);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-stella-white: rgb(10, 10, 8);
+    --color-stella-brighter-white: rgb(0, 0, 0);
 
-        --color-text: rgb(255, 255, 255);
-        --color-tinted-text: rgb(189, 189, 189);
+    --color-text: rgb(255, 255, 255);
+    --color-tinted-text: rgb(189, 189, 189);
 
-        --color-shadow: rgba(255, 255, 255, .1);
+    --color-shadow: rgba(255, 255, 255, .1);
 
-        --stella-logo: url('/_common/img/logo_white.svg');
-      }
-    }
+    --stella-logo: url('/_common/img/logo_white.svg');
+  }
+}
 
-    * {
-      box-sizing: border-box;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    html {
-      font-family: 'Upgrade', sans-serif;
-      font-weight: 300;
+html {
+  font-family: 'Upgrade', sans-serif;
+  font-weight: 300;
 
-      background: var(--color-stella-white);
-      color: var(--color-text);
-    }
+  background: var(--color-stella-white);
+  color: var(--color-text);
+}
 
-    header {
-      box-sizing: content-box;
+header {
+  box-sizing: content-box;
 
-      height: var(--header-height);
+  height: var(--header-height);
 
-      position: absolute;
-      top: var(--header-padding);
+  position: absolute;
+  top: var(--header-padding);
 
-      width: calc(100vw - calc(var(--header-padding)));
-      background: var(--color-stella-brighter-white);
+  width: calc(100vw - calc(var(--header-padding)));
+  background: var(--color-stella-brighter-white);
 
-      z-index: 100;
+  z-index: 100;
 
-      transition: .5s;
-    }
+  transition: .5s;
+}
 
-    header:focus-within, header:hover {
-      box-shadow: var(--color-shadow) 0px 8px 8px;
-    }
+header:focus-within, header:hover {
+  box-shadow: var(--color-shadow) 0px 8px 8px;
+}
 
-    nav > a.logo {
-      display: inline-block;
-      
-      width: calc(var(--header-height) * 1.7);
-      height: var(--header-height);
-      padding: var(--header-padding);
+nav > a.logo {
+  display: inline-block;
+  
+  width: calc(var(--header-height) * 1.7);
+  height: var(--header-height);
+  padding: var(--header-padding);
 
-      background: var(--stella-logo) no-repeat;
-      background-size: contain;
-      background-clip: content-box;
-      background-origin: content-box;
-    }
+  background: var(--stella-logo) no-repeat;
+  background-size: contain;
+  background-clip: content-box;
+  background-origin: content-box;
+}
 
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
-      float: right;
-      vertical-align: middle;
-    }
+  float: right;
+  vertical-align: middle;
+}
 
-    nav li {
-      display: inline-block;
-      margin: 0;
-      font-size: 1.2rem;
-    }
+nav li {
+  display: inline-block;
+  margin: 0;
+  font-size: 1.2rem;
+}
 
-    nav li a {
-      color: var(--color-text);
-      text-decoration: none;
-      height: var(--header-height);
-      line-height: calc(var(--header-height) / 2);
-      display: inline-block;
+nav li a {
+  color: var(--color-text);
+  text-decoration: none;
+  height: var(--header-height);
+  line-height: calc(var(--header-height) / 2);
+  display: inline-block;
 
-      transition: .2s;
-      padding: var(--header-padding);
-    }
+  transition: .2s;
+  padding: var(--header-padding);
+}
 
-    nav li a:hover {
-      background: var(--color-stella-blue);
-      color: #FFF;
-    }
+nav li a:hover {
+  background: var(--color-stella-blue);
+  color: #FFF;
+}
 
-    main section {
-      margin: 1rem;
-    }
-    
-    main section:first-child {
-      margin-top: calc(var(--header-height) + calc(var(--header-padding) * 2));
-    }
+main section {
+  margin: 1rem;
+}
 
-    main section.fullpage h1 {
-      font-size: 7vw;
-      margin: 0;
+main section:first-child {
+  margin-top: calc(var(--header-height) + calc(var(--header-padding) * 2));
+}
 
-      animation: slidein .5s ease-out;
-    }
+main section.fullpage h1 {
+  font-size: 7vw;
+  margin: 0;
 
-    main section.fullpage p {
-      font-size: 3vw;
-      animation: slidein .5s ease-out;
-    }
+  animation: slidein .5s ease-out;
+}
 
-    @media screen and (min-width: 1000px) {
-      main section.fullpage h1 {
-        font-size: 70px;
-        margin: 0;
-      }
+main section.fullpage p {
+  font-size: 3vw;
+  animation: slidein .5s ease-out;
+}
 
-      main section.fullpage p {
-        font-size: 30px;
-      }
-    }
+@media screen and (min-width: 1000px) {
+  main section.fullpage h1 {
+    font-size: 70px;
+    margin: 0;
+  }
 
-    section.fullpage {
-      height: calc(100vh - 8rem);
-      position: relative;
-    }
+  main section.fullpage p {
+    font-size: 30px;
+  }
+}
 
-    section.fullpage article {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+section.fullpage {
+  height: calc(100vh - 8rem);
+  position: relative;
+}
 
-    .highlight {
-      color: var(--color-stella-blue);
-    }
+section.fullpage article {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
-    footer {
-      font-size: .7em;
-      color: var(--color-tinted-text);
-    }
+.highlight {
+  color: var(--color-stella-blue);
+}
 
-    footer.at-end {
-      position: absolute;
-      bottom: 0;
-    }
+footer {
+  font-size: .7em;
+  color: var(--color-tinted-text);
+}
 
-    @keyframes slidein {
-      from { opacity: 0; transform: translateY(2em); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+footer.at-end {
+  position: absolute;
+  bottom: 0;
+}
+
+@keyframes slidein {
+  from { opacity: 0; transform: translateY(2em); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+a {
+  color: var(--color-stella-blue);
+  text-decoration: none;
+  opacity: .8;
+  transition: .2s;
+}
+
+a:hover {
+  opacity: 1;
+}
+
