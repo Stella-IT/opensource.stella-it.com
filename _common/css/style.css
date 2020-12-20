@@ -121,6 +121,11 @@
       color: var(--color-stella-blue);
     }
 
+    footer {
+      font-size: .7em;
+      color: #333;
+    }
+
     footer.at-end {
       position: absolute;
       bottom: 0;
