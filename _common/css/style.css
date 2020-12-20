@@ -51,6 +51,10 @@ body {
   margin: 0 auto;
 }
 
+body.fullpage {
+  overflow: hidden;
+}
+
 
 header {
   box-sizing: content-box;
@@ -169,7 +173,7 @@ footer {
 }
 
 footer.at-end {
-  position: absolute;
+  position: sticky;
   bottom: 0;
 }
 
