@@ -26,7 +26,7 @@
       position: absolute;
       top: var(--header-padding);
 
-      width: calc(100vw - calc(var(--header-padding) * 2));
+      width: calc(100vw - calc(var(--header-padding)));
       background: #FFF;
 
       z-index: 100;
