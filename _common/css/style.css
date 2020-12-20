@@ -160,6 +160,7 @@ section.fullpage article {
 
 .highlight {
   color: var(--color-stella-blue);
+  text-decoration: underline;
 }
 
 footer {
@@ -169,7 +170,11 @@ footer {
 
 footer.at-end {
   position: absolute;
-  bottom: 0;
+  bottom: var(--header-padding);
+}
+
+footer a.associates {
+  margin-right: 1em;
 }
 
 @keyframes slidein {
