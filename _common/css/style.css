@@ -14,6 +14,8 @@
   --color-shadow: rgba(0, 0, 0, .1);
 
   --stella-logo: url('/_common/img/logo_black.svg');
+
+  --max-width: 1200px;
 }
 
 
@@ -41,6 +43,12 @@ html {
 
   background: var(--color-stella-white);
   color: var(--color-text);
+
+}
+
+body {
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 header {
@@ -51,7 +59,8 @@ header {
   position: absolute;
   top: var(--header-padding);
 
-  width: calc(100vw - calc(var(--header-padding)));
+  max-width: calc(var(--max-width) - calc(var(--header-padding)));
+  width: calc(100% - calc(var(--header-padding)));
   background: var(--color-stella-brighter-white);
 
   z-index: 100;
