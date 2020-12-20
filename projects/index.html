@@ -32,28 +32,29 @@
     }
 
     .project {
-      background: #FFF;
+      background: var(--color-stella-brighter-white);
+      color: var(--color-text);
       padding: 24px;
-      box-shadow: rgba(0,0,0,.1) 0px 5px 4px;
+      box-shadow: var(--color-shadow) 0px 5px 4px;
       transition: .25s;
       cursor: pointer;
       margin-bottom: 24px;
     }
 
     .project:hover, .project:active, .project:focus-within, .project:focus {
-      box-shadow: rgba(0,0,0,.1) 0px 8px 8px;
+      box-shadow: var(--color-shadow) 0px 8px 8px;
     }
     
     section a { 
       text-decoration: none;
-      color: black;
+      color: var(--color-text);
     }
   </style>
 </head>
 <body>
   <header>
     <nav> 
-      <a href="/"><img src="/_common/img/logo.svg" alt="Stella IT Open Source"></a>
+      <a class="logo" href="/" title="Stella IT OpenSource">&nbsp;</a>     
 
       <ul>
         <li><a href="/projects/">Projects</a></li>

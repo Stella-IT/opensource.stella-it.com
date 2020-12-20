@@ -4,7 +4,31 @@
       --header-padding: 16px;
 
       --color-stella-blue: rgb(55, 140, 255);
+
       --color-stella-white: rgb(245, 245, 247);
+      --color-stella-brighter-white: rgb(255, 255, 255);
+
+      --color-text: rgb(0, 0, 0);
+      --color-tinted-text: rgb(66, 66, 66);
+
+      --color-shadow: rgba(0, 0, 0, .1);
+
+      --stella-logo: url('/_common/img/logo_black.svg');
+    }
+
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-stella-white: rgb(10, 10, 8);
+        --color-stella-brighter-white: rgb(0, 0, 0);
+
+        --color-text: rgb(255, 255, 255);
+        --color-tinted-text: rgb(189, 189, 189);
+
+        --color-shadow: rgba(255, 255, 255, .1);
+
+        --stella-logo: url('/_common/img/logo_white.svg');
+      }
     }
 
     * {
@@ -16,6 +40,7 @@
       font-weight: 300;
 
       background: var(--color-stella-white);
+      color: var(--color-text);
     }
 
     header {
@@ -27,7 +52,7 @@
       top: var(--header-padding);
 
       width: calc(100vw - calc(var(--header-padding)));
-      background: #FFF;
+      background: var(--color-stella-brighter-white);
 
       z-index: 100;
 
@@ -35,13 +60,20 @@
     }
 
     header:focus-within, header:hover {
-      box-shadow: rgba(0,0,0,.1) 0px 8px 8px;
+      box-shadow: var(--color-shadow) 0px 8px 8px;
     }
 
-    nav img:first-of-type {
+    nav > a.logo {
+      display: inline-block;
+      
+      width: calc(var(--header-height) * 1.7);
       height: var(--header-height);
-    
       padding: var(--header-padding);
+
+      background: var(--stella-logo) no-repeat;
+      background-size: contain;
+      background-clip: content-box;
+      background-origin: content-box;
     }
 
     nav ul {
@@ -60,7 +92,7 @@
     }
 
     nav li a {
-      color: #000;
+      color: var(--color-text);
       text-decoration: none;
       height: var(--header-height);
       line-height: calc(var(--header-height) / 2);
@@ -72,7 +104,7 @@
 
     nav li a:hover {
       background: var(--color-stella-blue);
-      color: var(--color-stella-white);
+      color: #FFF;
     }
 
     main section {
@@ -123,7 +155,7 @@
 
     footer {
       font-size: .7em;
-      color: #333;
+      color: var(--color-tinted-text);
     }
 
     footer.at-end {
