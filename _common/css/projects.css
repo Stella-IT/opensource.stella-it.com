@@ -1,5 +1,5 @@
 :root {
-  --project-lift: calc(var(--header-padding) * -0.5);
+  --project-lift: calc(var(--header-padding) * -0.7);
 }
 
 .project {
@@ -14,11 +14,12 @@
 
 .project:hover, .project:active, .project:focus-within, .project:focus {
   transform: translateY(var(--project-lift));
-  box-shadow: var(--color-shadow) 0px calc(5px + var(--project-lift)) calc(5px + var(--project-lift));
+  box-shadow: var(--color-shadow) 0px calc(5px - var(--project-lift)) 10px;
 }
 
 .project:active {
   transform: translateY(0);
+  box-shadow: var(--color-shadow) 0px 5px 5px;
 }
 
 section a { 
