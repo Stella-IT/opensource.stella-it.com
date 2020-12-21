@@ -1,20 +1,24 @@
+:root {
+  --project-lift: calc(var(--header-padding) * -0.5);
+}
 
 .project {
   background: var(--color-stella-brighter-white);
   color: var(--color-text);
   padding: 24px;
-  box-shadow: var(--color-shadow) 0px 5px 4px;
+  box-shadow: var(--color-shadow) 0px 5px 5px;
   transition: .25s;
   cursor: pointer;
   margin-bottom: 24px;
 }
 
 .project:hover, .project:active, .project:focus-within, .project:focus {
-  box-shadow: var(--color-shadow) 0px 8px 8px;
+  transform: translateY(var(--project-lift));
+  box-shadow: var(--color-shadow) 0px calc(5px + var(--project-lift)) calc(5px + var(--project-lift));
 }
 
 .project:active {
-  transform: translateY(calc(var(--header-padding) * 0.7));
+  transform: translateY(0);
 }
 
 section a { 
