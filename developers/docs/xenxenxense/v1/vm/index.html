@@ -6,26 +6,29 @@
   <link href="https://use.typekit.net/fsg7pmv.css" rel="stylesheet">
 
   <!-- Basic MetaTag -->
-  <meta name="title" content="Developers' Resources">
-  <meta name="description" content="Stella IT's Open Source Developers' Resources.">
+  <meta name="title" content="XenXenXenSe API - v1">
+  <meta name="description" content="Stella IT's Open Source Developer Docs">
 
   <!-- Twitter -->
-  <meta name="twitter:title" content="Developers' Resources">
-  <meta name="twitter:description" content="Stella IT's Open Source Developers' Resources.">
+  <meta name="twitter:title" content="XenXenXenSe API - v1">
+  <meta name="twitter:description" content="Stella IT's Open Source Developer Docs">
   <meta name="twitter:card" content="summary">
 
   <!-- OpenGraph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Developers' Resources">
-  <meta property="og:description" content="Stella IT's Open Source Developers' Resources.">
+  <meta property="og:title" content="XenXenXenSe API - v1">
+  <meta property="og:description" content="Stella IT's Open Source Developer Docs">
   <meta property="og:site_name" content="Stella IT">
 
 
 
-  <title>Developers' Resources</title>
+  <title>XenXenXenSe API - v1 - VM</title>
 
   <link rel="stylesheet" href="/_common/css/style.css">
   <link rel="stylesheet" href="/_common/css/projects.css">
+  <link rel="stylesheet" href="/_common/css/article.css">
+  
+
 </head>
 <body>
   <header>
@@ -40,22 +43,34 @@
   </header>
   <main>
     <section>
-      <h1>Developers' Resources</h1>
+      <h1>XenXenXenSe</h1>
+      <h2>API Version V1 - Virtual Machines</h2>
+      <p><b>Note:</b> All of the API calls in this page starts with <code>/v1/{cluster_id}/vm/</code></p>
+      
+      <h3>GET: <code>/vm/list</code></h3>
+      <p>Lists VM UUID and information.</p>
 
-      <h2>Links</h2>
-      <a href="https://meiling-dev.stella-it.com/">
-        <div class="project">
-          <h2>Meiling Project Frontend</h2>
-          <p>The frontend of the meiling project</p>
-        </div>
-      </a>
+      <h3>GET: <code>/vm/{vm_uuid}/cd</code></h3>
+      <p>Get VM's First Optical Media</p>
 
-      <a href="docs/">
-        <div class="project">
-          <h2>Developer Docs</h2>
-          <p>A Developer Docs for Stella IT's OpenSource Projects</p>
-        </div>
-      </a>
+      <h3>GET: <code>/vm/{vm_uuid}/power</code></h3>
+      <p>Get VM's Power State</p>
+
+      <h3>GET: <code>/vm/{vm_uuid}/power/on</code></h3>
+      <p>Turn on VM</p>
+
+      <h3>GET: <code>/vm/{vm_uuid}/power/off</code></h3>
+      <p>Turn off VM</p>
+
+      <h3>GET: <code>/vm/{vm_uuid}/power/reboot</code></h3>
+      <p>Reboot VM</p>
+
+      <h3>GET: <code>/vm/{vm_uuid}/power/force_reboot</code></h3>
+      <p>Force Reboot VM</p>
+
+      <h3>GET: <code>/vm/{vm_uuid}/power/suspend</code></h3>
+      <p>Suspend VM</p>
+
     </section>
   </main>
   <br>

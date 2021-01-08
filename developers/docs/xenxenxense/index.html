@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://use.typekit.net/fsg7pmv.css" rel="stylesheet">
+
+  <!-- Basic MetaTag -->
+  <meta name="title" content="Developer Docs">
+  <meta name="description" content="Stella IT's Open Source Developer Docs">
+
+  <!-- Twitter -->
+  <meta name="twitter:title" content="Developer Docs">
+  <meta name="twitter:description" content="Stella IT's Open Source Developer Docs">
+  <meta name="twitter:card" content="summary">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Developer Docs">
+  <meta property="og:description" content="Stella IT's Open Source Developer Docs">
+  <meta property="og:site_name" content="Stella IT">
+
+
+
+  <title>XenXenXenSe API</title>
+
+  <link rel="stylesheet" href="/_common/css/style.css">
+  <link rel="stylesheet" href="/_common/css/projects.css">
+  <link rel="stylesheet" href="/_common/css/article.css">
+
+  <style>
+    table   td {
+      border: rgba(127,127,127,1) 1px;
+    }
+  </style>
+
+</head>
+<body>
+  <header>
+    <nav> 
+      <a class="logo" href="/" title="Stella IT OpenSource">&nbsp;</a>     
+
+      <ul>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/github/">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h1>XenXenXenSe</h1>
+      <p>An easy-to-use HTTP API of XenAPI for Web Application Developers.</p>
+
+      <p>Thanks for choosing XenXenXenSe. This API Docs will help you develop XenAPI-based Applications in no time!</p>
+
+      <h2>Initial Setup</h2>
+      <p>When you first use your XenXenXenSe, You need to first configure your XenXenXenSe server.</p>
+      <p>This could be done via configuring <u>config.json</u>.<br>
+        A Sample config file is available as name <a href="https://github.com/Stella-IT/XenXenXenSe/blob/main/config.example.json">config.example.json</a>. Copy it and paste it as <u>config.json</u>.</p>
+
+      <h2>Multiple Hosts</h2>
+      <p>XenXenXenSe Supports controlling multiple hosts via single XenXenXenSe host!</p>
+      <p>You can configure multiple hosts at <a href="https://github.com/Stella-IT/XenXenXenSe/blob/main/config.example.json">config.json</a>.<br>
+        Configure your session by copying <u>config.example.json</u> to <u>config.json</u>.</p>
+
+      <p>Name of the host is configured in <u>xen_credentials</u> object in the config.json file.
+        <br><br> For example,</p>
+      <pre>
+"xen_clusters": {
+  "cluster-name": {
+    "host": "http://your-cluster-hostname",
+    "username": "im-groot",
+    "password": "my-password"
+  },
+  "cluster-name-2": {
+    "host": "http://its-muffin-time",
+    "username": "kimino",
+    "password": "zenzenzen"
+  }
+}
+</pre>
+    <p>The following will add these two hosts</p>
+
+    <table>
+      <thead>
+        <td>Cluster ID</td>
+        <td>Host URL</td>
+        <td>Username</td>
+        <td>Password</td>
+      </thead>
+      <tr>
+        <td>cluster-name</td>
+        <td>http://your-cluster-hostname</td>
+        <td>im-groot</td>
+        <td>my-password</td>
+      </tr>
+      <tr>
+        <td>cluster-name-2</td>
+        <td>http://its-muffin-time</td>
+        <td>kimino</td>
+        <td>zenzenzen</td>
+      </tr>
+    </table>
+
+    <p>The Cluster ID will be used for API calls. so make it memorable ones.</p>
+
+    <h2>API Docs</h2>
+    <a href="v1/">
+      <div class="project">
+        <h2>XenXenXenSe API Version 1</h2>
+      </div>
+    </a>
+    </section>
+  </main>
+  <br>
+  <br>
+  <footer>
+    &copy; Stella IT Inc.<br>
+    Stella IT and Stella IT Logo is a registered trademark and protected by Trademark law.
+    <div class="contact">
+      <a class="associates" href="https://stella-it.com">Stella IT Webpage</a>
+      <a class="associates" href="/code_of_conduct/">Code of Conduct</a>
+      <a class="associates" href="/discord/">Discord</a>
+      <a class="associates" href="/developers/">Devs</a><br>
+      <a class="associates" href="https://github.com/Stella-IT/opensource.stella-it.com">Contribute this page!</a>
+  </footer>
+  
+</body>
+</html>

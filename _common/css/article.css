@@ -1,0 +1,7 @@
+section h2:not(:first-child)  {
+  margin-top: 2em;
+}
+
+section h3 {
+  margin-top: 1.7em;
+}
