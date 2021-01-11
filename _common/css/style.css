@@ -249,3 +249,40 @@ section article.card h1 {
   }  
 }
 
+input {
+  box-sizing: border-box;
+  padding: .5em;
+  background: var(--color-stella-brighter-white);
+  color: var(--color-text);
+  border-radius: .25em;
+  border: none;
+  transition: box-shadow .5s;
+}
+
+input:hover, input:active {
+  box-shadow: .05em .05em .2em .01em var(--color-tinted-text) inset;
+}
+
+input::placeholder {
+  color: var(--color-tinted-text);
+}
+
+input.fill {
+  width: 100%;
+}
+
+.text\[xs\] {
+  font-size: .8em;
+}
+
+.text\[s\] {
+  font-size: .9em;
+}
+
+.text\[l\] {
+  font-size: 1.2em;
+}
+
+.text\[xl\] {
+  font-size: 1.5em;
+}

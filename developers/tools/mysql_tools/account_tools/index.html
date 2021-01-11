@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://use.typekit.net/fsg7pmv.css" rel="stylesheet">
+
+  <!-- Basic MetaTag -->
+  <meta name="title" content="MySQL Tools">
+  <meta name="description" content="Stella IT's Open Source Developer Tools">
+
+  <!-- Twitter -->
+  <meta name="twitter:title" content="MySQL Tools">
+  <meta name="twitter:description" content="Stella IT's Open Source Developer Tools">
+  <meta name="twitter:card" content="summary">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="MySQL Tools">
+  <meta property="og:description" content="Stella IT's Open Source Developer Tools">
+  <meta property="og:site_name" content="Stella IT">
+
+
+
+  <title>MySQL Tools</title>
+
+  <link rel="stylesheet" href="/_common/css/style.css">
+  <link rel="stylesheet" href="/_common/css/projects.css">
+  <link rel="stylesheet" href="/_common/css/article.css">
+
+</head>
+<body>
+  <header>
+    <nav> 
+      <a class="logo" href="/" title="Stella IT OpenSource">&nbsp;</a>     
+
+      <ul>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/github/">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h1>MySQL Account Tools</h1>
+      <p>For people lazy enough (like me, Alex4386) to create these easy query</p>
+
+      <h2>Common Resource</h2>
+
+      <input type="text" id="username" placeholder="username" class="fill text[xl]"><br>
+      <input type="text" id="password" placeholder="password" class="fill text[xl]">
+
+      <h2>Superuser Creator</h2>
+      <pre id="su_sql">
+        
+      </pre>
+      <button onclick="copySuQuery()">Copy Query</button>
+
+      <h2>Password changer</h2>
+      <pre id="pw_sql">
+
+      </pre>
+      <button onclick="copyPwQuery()">Copy Query</button>
+    </section>
+  </main>
+  <br>
+  <br>
+  <script>
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const suSqlInput = document.getElementById('su_sql');
+    const pwSqlInput = document.getElementById('pw_sql');
+
+    function getUsername() {
+      return usernameInput.value;
+    }
+
+    function getPassword() {
+      return passwordInput.value;
+    }
+
+    usernameInput.addEventListener('change', () => {updateQuery()});
+    passwordInput.addEventListener('change', () => {updateQuery()});
+
+    usernameInput.addEventListener('keydown', () => {updateQuery()});
+    passwordInput.addEventListener('keydown', () => {updateQuery()});
+    usernameInput.addEventListener('keyup', () => {updateQuery()});
+    passwordInput.addEventListener('keyup', () => {updateQuery()});
+
+    function updateQuery(username, password) {
+      suSqlInput.innerText = getSuQuery(username, password);
+      pwSqlInput.innerText = getPwQuery(username, password);
+    }
+
+    function getSuQuery(username, password) {
+      if (!username) username = getUsername();
+      if (!password) password = getPassword();
+      return `
+CREATE USER '${username}'@'localhost' IDENTIFIED BY '${password}';
+GRANT ALL PRIVILEGES ON * . * TO '${username}'@'localhost';
+CREATE USER '${username}'@'%' IDENTIFIED BY '${password}';
+GRANT ALL PRIVILEGES ON * . * TO '${username}'@'%';
+
+FLUSH PRIVILEGES;
+      `;
+    }
+
+    function getPwQuery(username, password) {
+      if (!username) username = getUsername();
+      if (!password) password = getPassword();
+      return `
+SET PASSWORD FOR '${username}'@'%' = PASSWORD('${password}');
+
+FLUSH PRIVILEGES;
+      `;
+    }
+
+    async function copySuQuery() {
+      suSqlInput.innerText = getSuQuery("username", "password");
+      await navigator.clipboard.writeText(suSqlInput.innerText);
+
+      alert("Copied to Clipboard!");
+    }
+
+    async function copyPwQuery() {
+      pwSqlInput.innerText = getPwQuery("username", "password");
+      await navigator.clipboard.writeText(pwSqlInput.innerText);
+
+      alert("Copied to Clipboard!");
+    }
+
+    updateQuery("username", "password");
+
+  </script>
+  <footer>
+    &copy; Stella IT Inc.<br>
+    Stella IT and Stella IT Logo is a registered trademark and protected by Trademark law.
+    <div class="contact">
+      <a class="associates" href="https://stella-it.com">Stella IT Webpage</a>
+      <a class="associates" href="/code_of_conduct/">Code of Conduct</a>
+      <a class="associates" href="/discord/">Discord</a>
+      <a class="associates" href="/developers/">Devs</a><br>
+      <a class="associates" href="https://github.com/Stella-IT/opensource.stella-it.com">Contribute this page!</a>
+  </footer>
+  
+</body>
+</html>
