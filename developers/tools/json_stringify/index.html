@@ -6,27 +6,28 @@
   <link href="https://use.typekit.net/fsg7pmv.css" rel="stylesheet">
 
   <!-- Basic MetaTag -->
-  <meta name="title" content="APT Tools">
+  <meta name="title" content="JSON Stringify">
   <meta name="description" content="Stella IT's Open Source Developer Tools">
 
   <!-- Twitter -->
-  <meta name="twitter:title" content="APT Tools">
+  <meta name="twitter:title" content="JSON Stringify">
   <meta name="twitter:description" content="Stella IT's Open Source Develper Tools">
   <meta name="twitter:card" content="summary">
 
   <!-- OpenGraph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="APT Tools">
+  <meta property="og:title" content="JSON Stringify">
   <meta property="og:description" content="Stella IT's Open Source Developer Tools">
   <meta property="og:site_name" content="Stella IT">
 
 
 
-  <title>APT Tools</title>
+  <title>JSON Stringify</title>
 
   <link rel="stylesheet" href="/_common/css/style.css">
   <link rel="stylesheet" href="/_common/css/projects.css">
   <link rel="stylesheet" href="/_common/css/pre.css">
+
 
 </head>
 <body>
@@ -42,23 +43,13 @@
   </header>
   <main>
     <section>
-      <h1>APT Tools</h1>
+      <h1>JSON Stringify</h1>
 
-      <h2>Change Mirror</h2>
-      <input type="url" id="original" placeholder="original" class="fill text[xl]" value="archive.ubuntu.com">
-      <select id="new" class="text[xl]">
-        <option disabled>----[KR]----</option>
-        <option selected>ftp.harukasan.org</option>
-        <option>ftp.kaist.ac.kr</option>
-        <option>mirror.kakao.com</option>
-        <option disabled>------------</option>
-      </select>
+      <textarea id="input" style="width: 100%; height: 10em; background-color: var(--color-stella-brighter-white); color: var(--color-text);"></textarea>
 
-      <pre id="command">
+      <pre id="result"></pre>
 
-      </pre>
-
-      <button onclick="copyCommand()">Copy Command</button>
+      <button onclick="copyString()">Copy String</button>
       
     </section>
   </main>
@@ -66,37 +57,35 @@
   <br>
 
   <script>
-    const originalInput = document.getElementById("original");
-    const newMirrorInput = document.getElementById("new");
+    const originalInput = document.getElementById("input");
 
-    const command = document.getElementById('command');
+    const result = document.getElementById('result');
+    let prevInnerText = "";
 
-    function createCommand() {
+    function createString() {
       const original = originalInput.value;
-      const mirror = newMirrorInput.value;
+      
+      try {
+        prevInnerText = JSON.stringify(original);
+      } catch(e) {}
 
-      return `sudo sed -i s/${original}/${mirror}/g /etc/apt/sources.list`;
+      return prevInnerText;
     } 
     
-    async function copyCommand() {
-      command.innerText = createCommand();
-      await navigator.clipboard.writeText(command.innerText);
+    async function copyString() {
+      result.innerText = createString();
+      await navigator.clipboard.writeText(result.innerText);
 
       alert("Copied to Clipboard!");
     }
 
-    function updateCommand() {
-      command.innerText = createCommand();
+    function updateString() {
+      result.innerText = createString();
     }
 
-    originalInput.addEventListener("change", updateCommand);
-    originalInput.addEventListener("keyup", updateCommand);
-    originalInput.addEventListener("keydown", updateCommand);
-
-    newMirrorInput.addEventListener("change", updateCommand);
-
-
-    updateCommand();
+    originalInput.addEventListener("change", updateString);
+    originalInput.addEventListener("keyup", updateString);
+    originalInput.addEventListener("keydown", updateString);
 
   </script>
   <footer>
