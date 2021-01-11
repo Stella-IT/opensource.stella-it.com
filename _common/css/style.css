@@ -250,7 +250,6 @@ section article.card h1 {
 }
 
 input {
-  box-sizing: border-box;
   padding: .5em;
   background: var(--color-stella-brighter-white);
   color: var(--color-text);
@@ -267,7 +266,8 @@ input::placeholder {
   color: var(--color-tinted-text);
 }
 
-input.fill {
+.fill {
+  box-sizing: border-box;
   width: 100%;
 }
 

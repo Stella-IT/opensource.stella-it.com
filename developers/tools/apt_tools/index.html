@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://use.typekit.net/fsg7pmv.css" rel="stylesheet">
+
+  <!-- Basic MetaTag -->
+  <meta name="title" content="APT Tools">
+  <meta name="description" content="Stella IT's Open Source Developer Tools">
+
+  <!-- Twitter -->
+  <meta name="twitter:title" content="APT Tools">
+  <meta name="twitter:description" content="Stella IT's Open Source Develper Tools">
+  <meta name="twitter:card" content="summary">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="APT Tools">
+  <meta property="og:description" content="Stella IT's Open Source Developer Tools">
+  <meta property="og:site_name" content="Stella IT">
+
+
+
+  <title>APT Tools</title>
+
+  <link rel="stylesheet" href="/_common/css/style.css">
+  <link rel="stylesheet" href="/_common/css/projects.css">
+
+</head>
+<body>
+  <header>
+    <nav> 
+      <a class="logo" href="/" title="Stella IT OpenSource">&nbsp;</a>     
+
+      <ul>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/github/">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h1>APT Tools</h1>
+
+      <h2>Change Mirror</h2>
+      <input type="url" id="original" placeholder="original" class="fill text[xl]" value="archive.ubuntu.com">
+      <select id="new" class="text[xl]">
+        <option disabled>----[KR]----</option>
+        <option selected>ftp.harukasan.org</option>
+        <option>ftp.kaist.ac.kr</option>
+        <option>mirror.kakao.com</option>
+        <option disabled>------------</option>
+      </select>
+
+      <pre id="command">
+
+      </pre>
+
+      <button onclick="copyCommand()">Copy Command</button>
+      
+    </section>
+  </main>
+  <br>
+  <br>
+
+  <script>
+    const originalInput = document.getElementById("original");
+    const newMirrorInput = document.getElementById("new");
+
+    const command = document.getElementById('command');
+
+    function createCommand() {
+      const original = originalInput.value;
+      const mirror = newMirrorInput.value;
+
+      return `sudo sed -i s/${original}/${mirror}/g /etc/apt/sources.list`;
+    } 
+    
+    async function copyCommand() {
+      command.innerText = createCommand();
+      await navigator.clipboard.writeText(command.innerText);
+
+      alert("Copied to Clipboard!");
+    }
+
+    function updateCommand() {
+      command.innerText = createCommand();
+    }
+
+    originalInput.addEventListener("change", updateCommand);
+    originalInput.addEventListener("keyup", updateCommand);
+    originalInput.addEventListener("keydown", updateCommand);
+
+    newMirrorInput.addEventListener("change", updateCommand);
+
+
+    updateCommand();
+
+  </script>
+  <footer>
+    &copy; Stella IT Inc.<br>
+    Stella IT and Stella IT Logo is a registered trademark and protected by Trademark law.
+    <div class="contact">
+      <a class="associates" href="https://stella-it.com">Stella IT Webpage</a>
+      <a class="associates" href="/code_of_conduct/">Code of Conduct</a>
+      <a class="associates" href="/discord/">Discord</a>
+      <a class="associates" href="/developers/">Devs</a><br>
+      <a class="associates" href="https://github.com/Stella-IT/opensource.stella-it.com">Contribute this page!</a>
+  </footer>
+  
+</body>
+</html>

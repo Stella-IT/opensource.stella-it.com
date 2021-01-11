@@ -116,14 +116,14 @@ FLUSH PRIVILEGES;
     }
 
     async function copySuQuery() {
-      suSqlInput.innerText = getSuQuery("username", "password");
+      suSqlInput.innerText = getSuQuery();
       await navigator.clipboard.writeText(suSqlInput.innerText);
 
       alert("Copied to Clipboard!");
     }
 
     async function copyPwQuery() {
-      pwSqlInput.innerText = getPwQuery("username", "password");
+      pwSqlInput.innerText = getPwQuery();
       await navigator.clipboard.writeText(pwSqlInput.innerText);
 
       alert("Copied to Clipboard!");
