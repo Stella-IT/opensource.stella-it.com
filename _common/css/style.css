@@ -208,8 +208,8 @@ section.fullpage article {
 }
 
 .highlight {
-  color: var(--color-stella-blue);
-  text-decoration: underline;
+  color: var(--color-stella-brighter-white);
+  background-color: var(--color-stella-blue);
 }
 
 @keyframes slidein {
