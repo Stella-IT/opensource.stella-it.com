@@ -176,6 +176,9 @@ footer a.associates {
   margin-right: 1em;
 }
 
+main section.fullpage h1 mark.highlight ~ mark.highlight {
+  padding-left: 0;
+}
 
 @media screen and (max-width: 500px) {
   br.mobile-break {
@@ -197,6 +200,11 @@ footer a.associates {
   footer {
     font-size: .85rem;
   }
+
+  main section.fullpage h1 mark.highlight ~ mark.highlight {
+    padding-left: .25em;
+  }
+
 }
 
 section.fullpage {
