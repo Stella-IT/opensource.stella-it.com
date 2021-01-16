@@ -190,6 +190,10 @@ footer a.associates {
     font-size: 1rem;
   }
 
+  .mobile-hidden {
+    display: none;
+  }
+
   footer {
     font-size: .85rem;
   }
@@ -208,8 +212,10 @@ section.fullpage article {
 }
 
 .highlight {
+  display: inline-block;
   color: var(--color-stella-brighter-white);
   background-color: var(--color-stella-blue);
+  padding: 0 .25em;
 }
 
 @keyframes slidein {
