@@ -80,10 +80,10 @@
       const authEndpoint = authBase.value;
 
       url += authEndpoint;
-      url += "?client_id="+clientId.value;
-      url += "&redirect_uri="+redirectUri.value;
-      url += "&response_type="+responseType.value;
-      url += "&scope="+scope.value;
+      url += clientId.value !== "" ? "?client_id="+clientId.value : "";
+      url += redirectUri.value !== "" ? "&redirect_uri="+redirectUri.value : "";
+      url += responseType.value !== "" ? "&response_type="+responseType.value : "";
+      url += scope.value !== "" ? "&scope="+scope.value : "";
       
       return url;
     } 
