@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://use.typekit.net/fsg7pmv.css" rel="stylesheet">
+
+  <!-- Basic MetaTag -->
+  <meta name="title" content="OAuth Tools">
+  <meta name="description" content="Stella IT's Open Source Developer Tools">
+
+  <!-- Twitter -->
+  <meta name="twitter:title" content="OAuth Tools">
+  <meta name="twitter:description" content="Stella IT's Open Source Develper Tools">
+  <meta name="twitter:card" content="summary">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="OAuth Tools">
+  <meta property="og:description" content="Stella IT's Open Source Developer Tools">
+  <meta property="og:site_name" content="Stella IT">
+
+
+
+  <title>OAuth Tools</title>
+
+  <link rel="stylesheet" href="/_common/css/style.css">
+  <link rel="stylesheet" href="/_common/css/projects.css">
+  <link rel="stylesheet" href="/_common/css/pre.css">
+
+
+</head>
+<body>
+  <header>
+    <nav> 
+      <a class="logo" href="/" title="Stella IT OpenSource">&nbsp;</a>     
+
+      <ul>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/github/">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h1>OAuth Tools</h1>
+
+      <input type="url" id="auth_base" placeholder="Auth BaseURL" value="https://appielogin.netlify.app/auth" class="fill text[xl]">
+      
+      <input type="url" id="client_id" placeholder="Client ID" class="fill text[xl]">
+      <input type="url" id="redirect_uri" placeholder="Redirect URI" class="fill text[xl]">
+      <input type="text" id="scope" placeholder="Scope" class="fill text[xl]">
+      
+
+      <select id="response_type" class="fill text[xl]">
+        <option value="">Nothing</option>
+        <option value="code">Authorization Code</option>
+        <option value="token">Access Token</option>
+      </select>
+
+      <pre id="result"></pre><br>
+      <Button id="copy">Copy URL</Button>
+
+    </section>
+  </main>
+  <br>
+  <br>
+
+  <script>
+    const authBase = document.getElementById("auth_base");
+    const clientId = document.getElementById("client_id");
+    const redirectUri = document.getElementById("redirect_uri");
+    const responseType = document.getElementById("response_type");
+    const scope = document.getElementById("scope");
+
+    const result = document.getElementById('result');
+
+    function createString() {
+      let url = "";
+      const authEndpoint = authBase.value;
+
+      url += authEndpoint;
+      url += "?client_id="+clientId.value;
+      url += "&redirect_uri="+redirectUri.value;
+      url += "&response_type="+responseType.value;
+      url += "&scope="+scope.value;
+      
+      return url;
+    } 
+    
+    async function copyString() {
+      result.innerText = createString();
+      await navigator.clipboard.writeText(result.innerText);
+
+      alert("Copied to Clipboard!");
+    }
+
+    function updateString() {
+      result.innerText = createString();
+    }
+
+    [ authBase, clientId, redirectUri, responseType, scope].forEach(
+      obj => {
+        obj.addEventListener("change", updateString);
+        obj.addEventListener("keyup", updateString);
+        obj.addEventListener("keydown", updateString);
+      }
+    );
+
+  </script>
+  <footer>
+    &copy; Stella IT Inc.<br>
+    Stella IT and Stella IT Logo is a registered trademark and protected by Trademark law.
+    <div class="contact">
+      <a class="associates" href="https://stella-it.com">Stella IT Webpage</a>
+      <a class="associates" href="/code_of_conduct/">Code of Conduct</a>
+      <a class="associates" href="/discord/">Discord</a>
+      <a class="associates" href="/developers/">Devs</a><br>
+      <a class="associates" href="https://github.com/Stella-IT/opensource.stella-it.com">Contribute this page!</a>
+  </footer>
+  
+</body>
+</html>
