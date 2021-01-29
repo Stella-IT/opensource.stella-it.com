@@ -1,7 +1,9 @@
 section h2:not(:first-child)  {
   margin-top: 2em;
+  font-weight: 500;
 }
 
 section h3 {
   margin-top: 1.7em;
+  font-weight: 500;
 }
