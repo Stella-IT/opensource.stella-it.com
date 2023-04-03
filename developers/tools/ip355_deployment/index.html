@@ -74,6 +74,7 @@
 
     function updateData() {
       const mac = getMacAddress();
+      console.log('updateData', mac);
       if (!mac) return;
 
       updateDialer();
