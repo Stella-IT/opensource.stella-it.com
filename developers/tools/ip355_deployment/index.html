@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://use.typekit.net/fsg7pmv.css" rel="stylesheet">
+
+  <!-- Basic MetaTag -->
+  <meta name="title" content="IP355 Deployment">
+  <meta name="description" content="Stella IT's Open Source Developer Tools">
+
+  <!-- Twitter -->
+  <meta name="twitter:title" content="IP355 Deployment">
+  <meta name="twitter:description" content="Stella IT's Open Source Develper Tools">
+  <meta name="twitter:card" content="summary">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="IP355 Deployment">
+  <meta property="og:description" content="Stella IT's Open Source Developer Tools">
+  <meta property="og:site_name" content="Stella IT">
+
+
+
+  <title>IP355 Deployment</title>
+
+  <link rel="stylesheet" href="/_common/css/style.css">
+  <link rel="stylesheet" href="/_common/css/projects.css">
+  <link rel="stylesheet" href="/_common/css/pre.css">
+
+
+</head>
+<body>
+  <header>
+    <nav> 
+      <a class="logo" href="/" title="Stella IT OpenSource">&nbsp;</a>     
+
+      <ul>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/github/">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h1>IP355 Deployment</h1>
+
+      <input type="text" id="mac_addr" placeholder="Mac Address" class="fill text[xl]">
+
+      <p>
+        Dialer: <code id="dialer_code"></code> <Button onclick="copyDialer()">Copy DialerCode</Button>
+      </p>
+
+      <p>
+        Password: <code id="password"></code> <Button onclick="copyPassword()">Copy Password</Button>
+      </p>
+
+    </section>
+  </main>
+  <br>
+  <br>
+
+  <script>
+    const mac_addr_dom = document.getElementById('mac_addr');
+
+    function getMacAddress() {
+      const macRemovedGibberish = mac_addr_dom.value.replace(/(-|\:)/g, '');
+      if (macRemovedGibberish.length === 12) return macRemovedGibberish;
+
+      return undefined;
+    }
+
+    function updateData() {
+      const mac = getMacAddress();
+      if (!mac) return;
+
+      updateDialer();
+      updatePassword();
+    }
+
+    function t9Conversion(data) {
+      data = data.replace(/[a-c]/ig, '2');
+      data = data.replace(/[d-f]/ig, '3');
+      data = data.replace(/[g-i]/ig, '4');
+      data = data.replace(/[j-l]/ig, '5');
+      data = data.replace(/[m-o]/ig, '6');
+      data = data.replace(/[p-s]/ig, '7');
+      data = data.replace(/[t-v]/ig, '8');
+      data = data.replace(/[w-z]/ig, '9');
+
+      return data;
+    }
+
+    function updateDialer() {
+      document.getElementById('dialer_code').value = getDialer();
+    }
+
+    function updatePassword() {
+      document.getElementById('password').value = getPassword();
+    }
+
+    function copy(value) {
+      navigator.clipboard.writeText(value);
+      alert('Copied "'+value+'" to clipboard!')
+
+    }
+
+    function copyDialer() {
+      const value = document.getElementById('dialer_code').value;
+      copy(value);
+    }
+
+    function copyPassword() {
+      const value = document.getElementById('password').value;
+      copy(value);
+    }
+
+    function getDialer() {
+      const mac = getMacAddress();
+      const lastSection = mac.slice(8);
+      const t9Converted = t9Conversion(lastSection)
+      
+      return '#*9340'+lastSection+'#';
+    }
+
+    function getPassword() {
+      const mac = getMacAddress();
+      const middleSection = mac.slice(8);
+      const lastSection = mac.slice(8);
+      
+      return '@'+lastSection.toLowerCase()+'*'+middleSection.toLowerCase()+'7';
+    }
+
+    copy
+  </script>
+  <footer>
+    &copy; Stella IT Inc.<br>
+    Stella IT and Stella IT Logo is a registered trademark and protected by Trademark law.
+    <div class="contact">
+      <a class="associates" href="https://stella-it.com">Stella IT Webpage</a>
+      <a class="associates" href="/code_of_conduct/">Code of Conduct</a>
+      <a class="associates" href="/discord/">Discord</a>
+      <a class="associates" href="/developers/">Devs</a><br>
+      <a class="associates" href="https://github.com/Stella-IT/opensource.stella-it.com">Contribute this page!</a>
+  </footer>
+  
+</body>
+</html>
