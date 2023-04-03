@@ -136,7 +136,7 @@
 
     function getPassword() {
       const mac = getMacAddress();
-      const middleSection = mac.slice(8);
+      const middleSection = mac.slice(4,8);
       const lastSection = mac.slice(8);
       
       return '@'+lastSection.toLowerCase()+'*'+middleSection.toLowerCase()+'7';
