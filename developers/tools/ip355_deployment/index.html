@@ -68,7 +68,7 @@
     const mac_addr_dom = document.getElementById('mac_addr');
 
     function getMacAddress() {
-      const macRemovedGibberish = mac_addr_dom.value.replace(/(-|\:)/g, '');
+      const macRemovedGibberish = mac_addr_dom.value.replace(/(-|\:|\.)/g, '');
       if (/[0-9a-f]{12}/ig.test(macRemovedGibberish)) {
         document.getElementById('warning').innerHTML = "";
         document.getElementById('warning').style.display = "none";
