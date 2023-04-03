@@ -47,6 +47,8 @@
 
       <p>Please this command on your local network to find your mac address: <code>arp -a</code></p>
 
+      <div style="background-color: #d4ad00; color: #000; display: none;" id="warning"></div>
+
       <input type="text" id="mac_addr" placeholder="Mac Address" class="fill text[xl]" onchange="updateData()">
 
       <p>
@@ -67,8 +69,14 @@
 
     function getMacAddress() {
       const macRemovedGibberish = mac_addr_dom.value.replace(/(-|\:)/g, '');
-      if (macRemovedGibberish.length === 12) return macRemovedGibberish;
+      if (/[0-9a-f]{12}/ig.test(macRemovedGibberish)) {
+        document.getElementById('warning').innerHTML = "";
+        document.getElementById('warning').style.display = "none";
+        return macRemovedGibberish;
+      }
 
+      document.getElementById('warning').innerHTML = "Not a valid MAC Address!";
+      document.getElementById('warning').style.display = "block";
       return undefined;
     }
 
