@@ -45,14 +45,16 @@
     <section>
       <h1>IP355 Deployment</h1>
 
-      <input type="text" id="mac_addr" placeholder="Mac Address" class="fill text[xl]">
+      <p>Please this command on your local network to find your mac address: <code>arp -a</code></p>
+
+      <input type="text" id="mac_addr" placeholder="Mac Address" class="fill text[xl]" onchange="updateData()">
 
       <p>
-        Dialer: <code id="dialer_code"></code> <Button onclick="copyDialer()">Copy DialerCode</Button>
+        Dialer: <code id="dialer_code">#########</code> <Button onclick="copyDialer()">Copy DialerCode</Button>
       </p>
 
       <p>
-        Password: <code id="password"></code> <Button onclick="copyPassword()">Copy Password</Button>
+        Password: <code id="password">#########</code> <Button onclick="copyPassword()">Copy Password</Button>
       </p>
 
     </section>
