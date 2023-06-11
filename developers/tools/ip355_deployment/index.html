@@ -111,8 +111,7 @@
     }
 
     function copy(value) {
-      navigator.clipboard.writeText(value);
-      alert('Copied "'+value+'" to clipboard!')
+      navigator.clipboard.writeText(value).then(() => {alert('Copied "'+value+'" to clipboard!');});
 
     }
 
