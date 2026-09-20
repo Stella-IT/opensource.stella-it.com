@@ -50,6 +50,7 @@
 
       <input type="text" id="username" placeholder="username" class="fill text[xl]"><br>
       <input type="text" id="password" placeholder="password" class="fill text[xl]"><br>
+      <button onclick="generatePassword()">Generate Password</button><br>
       <input type="text" id="database" placeholder="database" class="fill text[xl]">
 
       <h2>Database &amp; User Creator</h2>
@@ -83,6 +84,20 @@
 
     function getDatabase() {
       return databaseInput.value;
+    }
+
+    function generatePassword(length) {
+      if (!length) length = 24;
+      const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const values = new Uint32Array(length);
+      crypto.getRandomValues(values);
+      let password = '';
+      for (let i = 0; i < length; i++) {
+        password += charset[values[i] % charset.length];
+      }
+      passwordInput.value = password;
+      updateQuery();
+      return password;
     }
 
     usernameInput.addEventListener('change', () => {updateQuery()});
