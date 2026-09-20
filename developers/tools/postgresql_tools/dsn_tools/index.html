@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://use.typekit.net/fsg7pmv.css" rel="stylesheet">
+
+  <!-- Basic MetaTag -->
+  <meta name="title" content="PostgreSQL DSN Tools">
+  <meta name="description" content="Stella IT's Open Source Developer Tools">
+
+  <!-- Twitter -->
+  <meta name="twitter:title" content="PostgreSQL DSN Tools">
+  <meta name="twitter:description" content="Stella IT's Open Source Developer Tools">
+  <meta name="twitter:card" content="summary">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PostgreSQL DSN Tools">
+  <meta property="og:description" content="Stella IT's Open Source Developer Tools">
+  <meta property="og:site_name" content="Stella IT">
+
+
+
+  <title>PostgreSQL DSN Tools</title>
+
+  <link rel="stylesheet" href="/_common/css/style.css">
+  <link rel="stylesheet" href="/_common/css/projects.css">
+  <link rel="stylesheet" href="/_common/css/article.css">
+  <link rel="stylesheet" href="/_common/css/pre.css">
+
+</head>
+<body>
+  <header>
+    <nav> 
+      <a class="logo" href="/" title="Stella IT OpenSource">&nbsp;</a>     
+
+      <ul>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/github/">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h1>PostgreSQL DSN Tools</h1>
+
+      <h2>Generator</h2>
+
+      <input type="text" id="username" placeholder="username" class="fill text[xl]"><br>
+      <input type="text" id="password" placeholder="password" class="fill text[xl]"><br>
+      <input type="text" id="database" placeholder="database" class="fill text[xl]"><br>
+
+      <h3>Hosts</h3>
+      <p>Add one or more host:port pairs. Empty port is allowed.</p>
+      <div id="hosts"></div>
+      <button onclick="addHostRow()">Add Host</button>
+
+      <h3>DSN</h3>
+      <pre id="dsn_out">
+      </pre>
+      <button onclick="copyDsn()">Copy DSN</button>
+
+      <h2>Parser</h2>
+      <p>Paste a DSN below to break it into fields.</p>
+      <input type="text" id="dsn_in" placeholder="postgresql://user:pass@host1:5432,host2:5432/db" class="fill text[xl]">
+      <button onclick="parseDsnInput()">Parse</button>
+      <pre id="parse_out">
+      </pre>
+    </section>
+  </main>
+  <br>
+  <br>
+  <script>
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const databaseInput = document.getElementById('database');
+    const hostsContainer = document.getElementById('hosts');
+    const dsnOut = document.getElementById('dsn_out');
+    const dsnIn = document.getElementById('dsn_in');
+    const parseOut = document.getElementById('parse_out');
+
+    function addHostRow(host, port) {
+      const row = document.createElement('div');
+      row.className = 'host-row';
+
+      const hostField = document.createElement('input');
+      hostField.type = 'text';
+      hostField.placeholder = 'host';
+      hostField.className = 'host fill text[xl]';
+      if (host) hostField.value = host;
+
+      const portField = document.createElement('input');
+      portField.type = 'text';
+      portField.placeholder = 'port';
+      portField.className = 'port fill text[xl]';
+      if (port) portField.value = port;
+
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.innerText = 'Remove';
+      removeBtn.onclick = () => { row.remove(); updateDsn(); };
+
+      hostField.addEventListener('input', updateDsn);
+      portField.addEventListener('input', updateDsn);
+
+      row.appendChild(hostField);
+      row.appendChild(portField);
+      row.appendChild(removeBtn);
+      hostsContainer.appendChild(row);
+      updateDsn();
+    }
+
+    function getHosts() {
+      const rows = hostsContainer.querySelectorAll('.host-row');
+      const hosts = [];
+      rows.forEach((row) => {
+        const host = row.querySelector('.host').value.trim();
+        const port = row.querySelector('.port').value.trim();
+        if (host || port) hosts.push({ host, port });
+      });
+      return hosts;
+    }
+
+    function buildDsn() {
+      const user = usernameInput.value.trim();
+      const password = passwordInput.value;
+      const database = databaseInput.value.trim();
+      const hosts = getHosts();
+
+      let auth = '';
+      if (user) {
+        auth = encodeURIComponent(user);
+        if (password) auth += ':' + encodeURIComponent(password);
+        auth += '@';
+      }
+
+      const hostPart = hosts.map((h) => {
+        let s = h.host;
+        if (h.port) s += ':' + h.port;
+        return s;
+      }).join(',');
+
+      let dsn = 'postgresql://' + auth + hostPart;
+      if (database) dsn += '/' + encodeURIComponent(database);
+      return dsn;
+    }
+
+    function updateDsn() {
+      dsnOut.innerText = buildDsn();
+    }
+
+    async function copyDsn() {
+      updateDsn();
+      await navigator.clipboard.writeText(dsnOut.innerText);
+      alert("Copied to Clipboard!");
+    }
+
+    usernameInput.addEventListener('input', updateDsn);
+    passwordInput.addEventListener('input', updateDsn);
+    databaseInput.addEventListener('input', updateDsn);
+
+    function parseDsn(dsn) {
+      dsn = dsn.trim();
+      const schemeMatch = dsn.match(/^(postgresql|postgres):\/\//i);
+      if (!schemeMatch) throw new Error('DSN must start with postgresql:// or postgres://');
+
+      const scheme = schemeMatch[1].toLowerCase();
+      let rest = dsn.slice(schemeMatch[0].length);
+
+      let query = '';
+      const queryIdx = rest.indexOf('?');
+      if (queryIdx !== -1) {
+        query = rest.slice(queryIdx + 1);
+        rest = rest.slice(0, queryIdx);
+      }
+
+      let authority = rest;
+      let database = '';
+      const slashIdx = rest.indexOf('/');
+      if (slashIdx !== -1) {
+        authority = rest.slice(0, slashIdx);
+        database = decodeURIComponent(rest.slice(slashIdx + 1));
+      }
+
+      let user = '';
+      let password = '';
+      let hostPart = authority;
+      const atIdx = authority.lastIndexOf('@');
+      if (atIdx !== -1) {
+        const cred = authority.slice(0, atIdx);
+        hostPart = authority.slice(atIdx + 1);
+        const colonIdx = cred.indexOf(':');
+        if (colonIdx !== -1) {
+          user = decodeURIComponent(cred.slice(0, colonIdx));
+          password = decodeURIComponent(cred.slice(colonIdx + 1));
+        } else {
+          user = decodeURIComponent(cred);
+        }
+      }
+
+      const hosts = hostPart.split(',').filter((s) => s.length > 0).map((hp) => {
+        const idx = hp.lastIndexOf(':');
+        if (idx !== -1) {
+          return { host: hp.slice(0, idx), port: hp.slice(idx + 1) };
+        }
+        return { host: hp, port: '' };
+      });
+
+      const params = {};
+      if (query) {
+        query.split('&').forEach((pair) => {
+          if (!pair) return;
+          const eqIdx = pair.indexOf('=');
+          const k = decodeURIComponent(eqIdx !== -1 ? pair.slice(0, eqIdx) : pair);
+          const v = eqIdx !== -1 ? decodeURIComponent(pair.slice(eqIdx + 1)) : '';
+          params[k] = v;
+        });
+      }
+
+      return { scheme, user, password, hosts, database, params };
+    }
+
+    function parseDsnInput() {
+      try {
+        const result = parseDsn(dsnIn.value);
+        parseOut.innerText = JSON.stringify(result, null, 2);
+      } catch (e) {
+        parseOut.innerText = 'Error: ' + e.message;
+      }
+    }
+
+    addHostRow('localhost', '5432');
+    updateDsn();
+
+  </script>
+  <footer>
+    &copy; Stella IT Inc.<br>
+    Stella IT and Stella IT Logo is a registered trademark and protected by Trademark law.
+    <div class="contact">
+      <a class="associates" href="https://stella-it.com">Stella IT Webpage</a>
+      <a class="associates" href="/code_of_conduct/">Code of Conduct</a>
+      <a class="associates" href="/discord/">Discord</a>
+      <a class="associates" href="/developers/">Devs</a><br>
+      <a class="associates" href="https://github.com/Stella-IT/opensource.stella-it.com">Contribute this page!</a>
+  </footer>
+  
+</body>
+</html>
