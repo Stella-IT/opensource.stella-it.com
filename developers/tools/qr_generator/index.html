@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://use.typekit.net/fsg7pmv.css" rel="stylesheet">
+
+  <!-- Basic MetaTag -->
+  <meta name="title" content="QR Generator">
+  <meta name="description" content="Stella IT's Open Source Developer Tools">
+
+  <!-- Twitter -->
+  <meta name="twitter:title" content="QR Generator">
+  <meta name="twitter:description" content="Stella IT's Open Source Developer Tools">
+  <meta name="twitter:card" content="summary">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="QR Generator">
+  <meta property="og:description" content="Stella IT's Open Source Developer Tools">
+  <meta property="og:site_name" content="Stella IT">
+
+
+
+  <title>QR Generator</title>
+
+  <link rel="stylesheet" href="/_common/css/style.css">
+  <link rel="stylesheet" href="/_common/css/projects.css">
+  <link rel="stylesheet" href="/_common/css/pre.css">
+
+  <style>
+    .qr-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      margin: 1em 0;
+      align-items: center;
+    }
+
+    .qr-options label {
+      display: flex;
+      align-items: center;
+      gap: .5em;
+    }
+
+    #qr_canvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 1em 0;
+      image-rendering: pixelated;
+    }
+  </style>
+
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="/" title="Stella IT OpenSource">&nbsp;</a>
+
+      <ul>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/github/">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h1>QR Generator</h1>
+
+      <textarea id="input" placeholder="Text or URL" style="width: 100%; height: 6em; background-color: var(--color-stella-brighter-white); color: var(--color-text);"></textarea>
+
+      <div class="qr-options">
+        <label>
+          Error Correction
+          <select id="ecc">
+            <option value="L">L (7%)</option>
+            <option value="M" selected>M (15%)</option>
+            <option value="Q">Q (25%)</option>
+            <option value="H">H (30%)</option>
+          </select>
+        </label>
+        <label>
+          Size (px)
+          <input type="number" id="size" value="512" min="64" max="4096" step="32">
+        </label>
+        <label>
+          Margin (modules)
+          <input type="number" id="margin" value="4" min="0" max="16">
+        </label>
+        <label>
+          Foreground
+          <input type="color" id="fg" value="#000000">
+        </label>
+        <label>
+          Background
+          <input type="color" id="bg" value="#ffffff">
+        </label>
+      </div>
+
+      <canvas id="qr_canvas"></canvas>
+      <pre id="status"></pre>
+
+      <button onclick="downloadPng()">Download PNG</button>
+      <button onclick="downloadSvg()">Download SVG</button>
+      <button onclick="copyImage()">Copy Image</button>
+    </section>
+  </main>
+  <br>
+  <br>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" integrity="sha384-mZT2gIty7ZDdOGkxfP6joZcYdMW1Jvj9dRlfpTmaJAKKXTqzygtB22k7FLe+KZC1" crossorigin="anonymous"></script>
+  <script>
+    qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+
+    const textInput = document.getElementById('input');
+    const eccInput = document.getElementById('ecc');
+    const sizeInput = document.getElementById('size');
+    const marginInput = document.getElementById('margin');
+    const fgInput = document.getElementById('fg');
+    const bgInput = document.getElementById('bg');
+    const canvas = document.getElementById('qr_canvas');
+    const status = document.getElementById('status');
+
+    let currentQr = null;
+
+    function clampInt(value, min, max, fallback) {
+      const n = parseInt(value, 10);
+      if (isNaN(n)) return fallback;
+      return Math.min(Math.max(n, min), max);
+    }
+
+    function getOptions() {
+      return {
+        size: clampInt(sizeInput.value, 64, 4096, 512),
+        margin: clampInt(marginInput.value, 0, 16, 4),
+        fg: fgInput.value,
+        bg: bgInput.value,
+      };
+    }
+
+    function buildQr(text) {
+      const qr = qrcode(0, eccInput.value);
+      qr.addData(text);
+      qr.make();
+      return qr;
+    }
+
+    function render() {
+      const text = textInput.value;
+      const { size, margin, fg, bg } = getOptions();
+      const ctx = canvas.getContext('2d');
+
+      if (!text) {
+        currentQr = null;
+        canvas.width = canvas.height = 0;
+        status.innerText = 'Type something to generate a QR code.';
+        return;
+      }
+
+      try {
+        currentQr = buildQr(text);
+      } catch (e) {
+        currentQr = null;
+        canvas.width = canvas.height = 0;
+        status.innerText = 'Data too long for a QR code at this error correction level.';
+        return;
+      }
+
+      const count = currentQr.getModuleCount();
+      const total = count + margin * 2;
+      const cell = Math.max(1, Math.floor(size / total));
+      const pixels = cell * total;
+
+      canvas.width = pixels;
+      canvas.height = pixels;
+
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, pixels, pixels);
+      ctx.fillStyle = fg;
+      for (let r = 0; r < count; r++) {
+        for (let c = 0; c < count; c++) {
+          if (currentQr.isDark(r, c)) {
+            ctx.fillRect((c + margin) * cell, (r + margin) * cell, cell, cell);
+          }
+        }
+      }
+
+      const version = (count - 17) / 4;
+      status.innerText = `Version ${version} (${count}x${count}), ${pixels}x${pixels}px, ${new TextEncoder().encode(text).length} bytes`;
+    }
+
+    function buildSvg() {
+      const { margin, fg, bg } = getOptions();
+      const count = currentQr.getModuleCount();
+      const total = count + margin * 2;
+
+      let path = '';
+      for (let r = 0; r < count; r++) {
+        for (let c = 0; c < count; c++) {
+          if (currentQr.isDark(r, c)) path += `M${c + margin},${r + margin}h1v1h-1z`;
+        }
+      }
+
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${total} ${total}" shape-rendering="crispEdges">` +
+        `<rect width="100%" height="100%" fill="${bg}"/>` +
+        `<path d="${path}" fill="${fg}"/></svg>`;
+    }
+
+    function triggerDownload(href, filename) {
+      const a = document.createElement('a');
+      a.href = href;
+      a.download = filename;
+      a.click();
+    }
+
+    function downloadPng() {
+      if (!currentQr) return;
+      triggerDownload(canvas.toDataURL('image/png'), 'qrcode.png');
+    }
+
+    function downloadSvg() {
+      if (!currentQr) return;
+      const url = URL.createObjectURL(new Blob([buildSvg()], { type: 'image/svg+xml' }));
+      triggerDownload(url, 'qrcode.svg');
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    async function copyImage() {
+      if (!currentQr) return;
+      try {
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+        alert("Copied to Clipboard!");
+      } catch (e) {
+        alert("Failed to copy image: " + e.message);
+      }
+    }
+
+    [textInput, eccInput, sizeInput, marginInput, fgInput, bgInput].forEach((el) => {
+      el.addEventListener('input', render);
+      el.addEventListener('change', render);
+    });
+
+    const initial = new URLSearchParams(location.search).get('text');
+    if (initial) textInput.value = initial;
+    render();
+  </script>
+  <footer>
+    &copy; Stella IT Inc.<br>
+    Stella IT and Stella IT Logo is a registered trademark and protected by Trademark law.
+    <div class="contact">
+      <a class="associates" href="https://stella-it.com">Stella IT Webpage</a>
+      <a class="associates" href="/code_of_conduct/">Code of Conduct</a>
+      <a class="associates" href="/discord/">Discord</a>
+      <a class="associates" href="/developers/">Devs</a><br>
+      <a class="associates" href="https://github.com/Stella-IT/opensource.stella-it.com">Contribute this page!</a>
+  </footer>
+
+</body>
+</html>
